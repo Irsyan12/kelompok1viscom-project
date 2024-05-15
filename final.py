@@ -10,6 +10,57 @@ line_height = 550
 matches = []
 time_since_last_count = 0  # Initialize the variable here
 
+
+def intro_page():
+    col = st.container()
+
+    with col:
+        st.markdown(
+            """
+            <style>
+            .landing-header {
+                color: #074173;
+                text-align: center;
+                padding: 50px 0;
+            }
+            .landing-text {
+                color: #333333;
+                text-align: justify;
+                padding: 0 20%;
+                font-size: 18px;
+            }
+            
+            </style>
+            """,
+            unsafe_allow_html=True
+        )
+
+        st.markdown("<h1 class='landing-header'>Welcome to Car Detection System</h1>", unsafe_allow_html=True)
+        
+        st.markdown(
+            """
+            <p class='landing-text'>This system aims to detect and analyze vehicles in video streams in real-time. 
+            It provides information about traffic conditions based on the number of cars detected, helping to 
+            improve traffic management and planning. Get started by selecting a video to view the car detection system in action! 🚗✨</p>
+            """,
+            unsafe_allow_html=True
+        )
+
+        if st.button("Get Started", key="get_started_btn"):
+                st.session_state.get_started = True
+                st.rerun()
+
+def main():
+    st.set_page_config(page_title="Image Sharpening App", page_icon=":camera:")
+
+    if "get_started" not in st.session_state:
+        st.session_state.get_started = False
+
+    if not st.session_state.get_started:
+        intro_page()
+    else:
+        page_main()
+        
 def get_centroid(x, y, w, h):
     x1 = int(w / 2)
     y1 = int(h / 2)
@@ -20,7 +71,7 @@ def get_centroid(x, y, w, h):
 # Load Haar Cascade untuk deteksi mobil
 car_cascade = cv2.CascadeClassifier('haarcascade_car.xml')
 
-def main():
+def page_main():
     st.markdown(
         '''
         <style>
@@ -42,6 +93,9 @@ def main():
             display: flex;
             justify-content: center;
             margin-top: 20px;
+        }
+        .st-emotion-cache-1jmvea6 {
+            color: white;
         }
         </style>
         ''', 
