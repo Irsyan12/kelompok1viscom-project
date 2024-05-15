@@ -72,8 +72,8 @@ def detect_cars(frame):
     for (x, y, w, h) in cars_detected:
         contour_valid = (w >= min_contour_width) and (h >= min_contour_height)
 
-        if not contour_valid:
-            continue
+        if contour_valid:
+            cars += 1
 
         cv2.rectangle(frame, (x-10, y-10), (x+w+10, y+h+10), (255, 0, 0), 2)
         centroid = get_centroid(x, y, w, h)
@@ -115,18 +115,50 @@ def show_car_detection_system(video_option):
         background_color = ""
         status = ""
         color = ""
-        if mobil > 60:
-            background_color = "rgba(255, 0, 0, 0.8)"
-            status = "Macet"
-            color = "white"
-        elif mobil > 30:
-            background_color = "rgba(255, 255, 0, 0.8)"
-            status = "Padat Lancar"
-            color = "black"
-        else:
-            background_color = "rgba(0, 128, 0, 0.8)"
-            status = "Lancar"
-            color = "white"
+        # Di dalam loop while di dalam fungsi show_car_detection_system
+
+        if video_option == "Video 1":
+            if mobil > 30:
+                background_color = "rgba(255, 0, 0, 0.8)"
+                status = "Macet"
+                color = "white"
+            elif mobil > 15:
+                background_color = "rgba(255, 255, 0, 0.8)"
+                status = "Padat Lancar"
+                color = "black"
+            else:
+                background_color = "rgba(0, 128, 0, 0.8)"
+                status = "Lancar"
+                color = "white"
+
+        elif video_option == "Video 2":
+            if mobil > 15:
+                background_color = "rgba(255, 0, 0, 0.8)"
+                status = "Macet"
+                color = "white"
+            elif mobil > 10:
+                background_color = "rgba(255, 255, 0, 0.8)"
+                status = "Padat Lancar"
+                color = "black"
+            else:
+                background_color = "rgba(0, 128, 0, 0.8)"
+                status = "Lancar"
+                color = "white"
+
+        elif video_option == "Video 3":
+            if mobil > 20:
+                background_color = "rgba(255, 0, 0, 0.8)"
+                status = "Macet"
+                color = "white"
+            elif mobil > 10:
+                background_color = "rgba(255, 255, 0, 0.8)"
+                status = "Padat Lancar"
+                color = "black"
+            else:
+                background_color = "rgba(0, 128, 0, 0.8)"
+                status = "Lancar"
+                color = "white"
+
 
         frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 
